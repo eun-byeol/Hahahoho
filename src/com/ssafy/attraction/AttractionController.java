@@ -32,5 +32,4 @@ public class AttractionController extends HttpServlet {
 	}
 	
 	
-
 }
