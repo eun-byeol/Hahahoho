@@ -29,11 +29,9 @@
               <div class="col-lg-4 mb-5 mb-lg-0">
                   <h4 class="text-uppercase mb-4">Location</h4>
                   <p class="lead mb-0">
-                      Teheran-ro, Gangnam-gu, Seoul, Republic of Korea
-                      <br />
-                      대표번호: 1588-3357
-                      <br />
-                      사업자번호: 123-4567-987
+                      Teheran-ro, Gangnam-gu, Seoul, Republic of Korea <br />
+                      	대표번호: 1588-3357 <br />
+                      	사업자번호: 123-4567-987
                   </p>
               </div>
           </div>
