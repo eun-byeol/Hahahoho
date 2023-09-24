@@ -20,7 +20,7 @@
                     sign_up.style.display='none';   // 회원가입 감추기
 
                     document.getElementById('logout2').style.display='block';   // 로그아웃
-                    document.getElementById('map').style.display='block';       // 지도
+                    document.getElementById('map1').style.display='block';       // 지도
                     document.getElementById('myPage').style.display='block';    // 마이 페이지
                 }
             }

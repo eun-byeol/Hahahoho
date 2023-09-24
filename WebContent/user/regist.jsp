@@ -17,7 +17,7 @@
               sign_up.style.display='none';   // 회원가입 감추기
 
               document.getElementById('logout2').style.display='block';   // 로그아웃
-              document.getElementById('map').style.display='block';       // 지도
+              document.getElementById('map1').style.display='block';       // 지도
               document.getElementById('myPage').style.display='block';    // 마이 페이지
             }
         }
@@ -39,13 +39,15 @@
           </div>
           <!-- 회원가입 폼 -->
           <div class="justify-content-center">
-            <form name="login-form" class="login-form">
+            <form name="login-form" class="login-form" action="user" method="post">
+              <input type="hidden" id="action" name="action" value="regist">
               <!-- 아이디 -->
               <div class="form-floating mb-3">
                 <input
                   type="text"
                   class="form-control"
                   id="id"
+                  name = "userId"
                   placeholder="ID"
                   data-sb-validations="required"
                 />
@@ -58,6 +60,7 @@
                   type="password"
                   class="form-control"
                   id="password"
+                  name = "userPwd"
                   placeholder="password"
                   data-sb-validations="required"
                 />
@@ -70,6 +73,7 @@
                   type="text"
                   class="form-control"
                   id="name"
+                  name = "userName"
                   placeholder="name"
                   data-sb-validations="required"
                 />
@@ -82,6 +86,7 @@
                   type="email"
                   class="form-control"
                   id="email"
+                  name = "userEmail"
                   placeholder="email"
                   data-sb-validations="required"
                 />
@@ -94,6 +99,7 @@
                   type="number"
                   class="form-control"
                   id="age"
+                  name = "userAge"
                   placeholder="age"
                 />
                 <label for="age">age</label>
@@ -105,6 +111,7 @@
                   type="text"
                   class="form-control"
                   id="question"
+                  name = "question"
                   placeholder="question"
                 />
                 <label for="question">question</label>
@@ -116,6 +123,7 @@
                   type="text"
                   class="form-control"
                   id="answer"
+                  name = "answer"
                   placeholder="answer"
                 />
                 <label for="answer">answer</label>
@@ -128,7 +136,7 @@
                   onclick="regist()"
                   type="button"
                 >
-                  회원가입
+                  	회원가입
                 </button>
               </div>
             </form>

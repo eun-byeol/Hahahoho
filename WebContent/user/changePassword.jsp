@@ -3,10 +3,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/include/header.jsp" %>
+	<%@ include file="/include/header.jsp" %>
+	<script>
+        window.onload=function(){
+            var login = sessionStorage.getItem('login');
+            
+            // login키값이 존재한다면
+            if(login){
+                if(login== 'success'){
+                    var myPage_on = document.getElementById('myPage');  // 마이페이지 메뉴
+                    var log_out = document.getElementById('login2');    // 로그아웃 메뉴
+                    var sign_up = document.getElementById('register');  // 회원가입 메뉴
+                    
+                    log_out.style.display='none';   // 로그인 감추기
+                    sign_up.style.display='none';   // 회원가입 감추기
+
+                    document.getElementById('logout2').style.display='block';   // 로그아웃
+                    document.getElementById('map1').style.display='block';       // 지도
+                    document.getElementById('myPage').style.display='block';    // 마이 페이지
+                }
+            }
+        }  
+    </script>
 </head>
 <body>
-<%@ include file="/include/nav.jsp" %>
+	<%@ include file="/include/nav.jsp" %>
+	<!-- main -->
+    <main class="loginform-container row align-items-center my-auto">
+        <div class="form-signin align-middle text-center col-md-4">
+          <h1>Change Password</h1>
+          <div class="justify-content-center">
+            <!-- 비밀번호 찾기 폼 -->
+            <form name="login-form" class="login-form">
+                <!-- 비밀번호 -->
+                <div class="form-floating mb-3">
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        placeholder="password"
+                    />
+                    <label for="password">password</label>
+                </div>
+                <!-- 비밀번호 확인 -->
+                <div class="form-floating mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="password2"
+                        placeholder="password check"
+                    />
+                    <label for="password">password check</label>
+                </div>
+                <!-- 비밀번호 재설정 버튼 -->
+                <div class="p-1">
+                    <button
+                    class="w-100 btn bg-secondary fw-bold fs-5 text-white"
+                    onclick="changePassword()"
+                    type="button"
+                    >
+                    비밀번호 재설정
+                    </button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </main>
 </body>
 <%@ include file="/include/footer.jsp" %>
 </html>
