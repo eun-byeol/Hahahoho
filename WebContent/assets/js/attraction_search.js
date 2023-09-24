@@ -1,73 +1,82 @@
-const serviceKey = "yw3U7M2x0oh47wPnt3y4Z2TX3ALnUJmXpYCHc0HdsT%2BGxhs8Cwiop22qhI6CATxjUl2GVcULe7%2B%2F725aD4L3gg%3D%3D";
+getSidoInfo();
 
 /*
 시도 정보 - index page 로딩 후 전국의 시도 설정
 */
-let areaUrl = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${serviceKey}&numOfRows=30&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json`;
+function getSidoInfo() {
+	const url = `/attraction?action=searchSido`;
+	
+	fetch(url)
+	    .then((response) => response.json())
+	    .then((data) => makeSidoOption(data));
+}
 
-fetch(areaUrl, { method: "GET" })
-    .then((response) => response.json())
-    .then((data) => makeAreaOption(data));
-
-function makeAreaOption(data) {
-    let areas = data.response.body.items.item;
-    // console.log(areas);
+function makeSidoOption(data) {
+    let sidoInfos = data.infos;
+//    console.log("sidoInfos", sidoInfos);
+    
     let sel = document.getElementById("search-province-area");
-    let opt = '';
-    areas.forEach((area) => {
+    
+    sidoInfos.forEach((sido) => {
         let opt = document.createElement("option");
-        opt.setAttribute("value", area.code);
-        opt.appendChild(document.createTextNode(area.name));
+        opt.setAttribute("value", sido.sidoCode);
+        opt.appendChild(document.createTextNode(sido.sidoName));
 
         sel.appendChild(opt);
     });
 }
 
 /*
-군구 정보 - 시도 option 선택 시, 군구 정보 설정
+구군 정보 - 시도 option 선택 시, 구군 정보 설정
 */
-var selectedArea = document.getElementById("search-province-area");
-selectedArea.addEventListener("click", () => {
-    if (selectedArea.value != 0) {
-        let sigunguUrl = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${serviceKey}&numOfRows=40&MobileOS=ETC&MobileApp=AppTest&areaCode=${selectedArea.value}&_type=json`;
-        // console.log(selectedArea.value);
-        fetch(sigunguUrl, { method: "GET" })
+var selectedSido = document.getElementById("search-province-area");
+selectedSido.addEventListener("click", () => {
+    if (selectedSido.value != 0) {
+		
+		const url = `/attraction?action=searchGugun&sidoCode=${selectedSido.value}`;
+      
+        fetch(url)
             .then((response) => response.json())
-            .then((data) => makeSigundoOption(data));
+            .then((data) => makeGugunOption(data));
     }
 })
 
-function makeSigundoOption(data) {
-    let areas = data.response.body.items.item;
-    // console.log(areas);
+function makeGugunOption(data) {
+    let gugunInfos = data.infos;
+//    console.log("gugunInfos", gugunInfos);
+    
     let sel = document.getElementById("search-city-area");
     let opt = '<option value="0" selected>군구 선택</option>';
-    areas.forEach((area) => {
-        opt += `<option value=${area.code}>${area.name}</option>`;
+    
+    gugunInfos.forEach((gugun) => {
+        opt += `<option value=${gugun.gugunCode}>${gugun.gugunName}</option>`;
     });
     sel.innerHTML = opt;
 }
 
 
 /*
-시도, 군구, 관광지 유형별 조회
+관광지 조회
 */
+
 document.getElementById("btn-search").addEventListener("click", () => {
-    var searchUrl = `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=30&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A`;
-
-    let areaCode = document.getElementById("search-province-area").value;
-    let sigunguCode = document.getElementById("search-city-area").value;
-    let contentTypeId = document.getElementById("search-content-id").value;
-
-    if (parseInt(contentTypeId)) searchUrl += `&contentTypeId=${contentTypeId}`;
-    if (parseInt(areaCode)) searchUrl += `&areaCode=${areaCode}`;
-    if (parseInt(sigunguCode)) searchUrl += `&sigunguCode=${sigunguCode}`;
-
-    fetch(searchUrl)
-      .then((response) => response.json())
-      .then((data) => makeList(data)); // 검색 후 마커 찍기
+    getAttractionInfo();
 });
 
+
+/*
+시도, 구, 관광지 유형별 조회
+*/
+function getAttractionInfo() {
+	const sidoCode = document.getElementById("search-province-area").value;
+    const gugunCode = document.getElementById("search-city-area").value;
+    const contentTypeId = document.getElementById("search-content-id").value;
+    
+	const url = `/attraction?action=search&sidoCode=${sidoCode}&gugunCode=${gugunCode}&contentTypeId=${contentTypeId}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => makeList(data)); // 검색 후 마커 찍기
+}
 
 
 /*
@@ -106,22 +115,22 @@ map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 */
 var positions; // marker 배열
 function makeList(data) {
-    let trips = data.response.body.items.item;
-    // console.log(trips);
+    let trips = data.infos;
+//    console.log(trips);
     positions = [];
     
     trips.forEach((area) => {
         // console.log(area);
         let markerInfo = {
             title: area.title,
-            latlng: new kakao.maps.LatLng(area.mapy, area.mapx),
-            image: area.firstimage,
+            latlng: new kakao.maps.LatLng(area.latitude, area.longitude),
+            image: area.firstImage,
             addr1: area.addr1,
             addr2: area.addr2
         };
         positions.push(markerInfo);
     });
-    // console.log(positions);
+    
     displayMarker();
     if (positions.length != 0) {
         map.setCenter(new kakao.maps.LatLng(positions[0].latlng.Ma, positions[0].latlng.La));
@@ -179,7 +188,7 @@ function closeOverlay() {
 */
 function createContent(info) {
     if (info.image == '') {
-        info.image = 'assets/img/no_image.jpg';
+        info.image = '../assets/img/no_image.jpg';
     }
     return '<div class="wrap">' + 
             '    <div class="info">' + 
