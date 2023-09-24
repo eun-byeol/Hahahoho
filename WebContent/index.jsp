@@ -23,21 +23,20 @@
         <!-- 로그인 여부에 따른 네비게이션 바 -->
         <script>
         window.onload=function() {
-            var login = sessionStorage.getItem('login');
-            
-            if(login){ // login키값이 존재한다면
-                if(login== 'success') {
-                    var myPage_on = document.getElementById('myPage');  // 마이페이지 메뉴
-                    var log_out = document.getElementById('login2');    // 로그아웃 메뉴
-                    var sign_up = document.getElementById('register');  // 회원가입 메뉴
-                    
-                    log_out.style.display='none';   // 로그인 감추기
-                    sign_up.style.display='none';   // 회원가입 감추기
+        	var login = document.cookie.split("=");
+            //console.log(login[1]);
+     		
+            if(login[1]){ // login키값이 존재한다면
+                 var myPage_on = document.getElementById('myPage');  // 마이페이지 메뉴
+                 var log_out = document.getElementById('login2');    // 로그아웃 메뉴
+                 var sign_up = document.getElementById('register');  // 회원가입 메뉴
+                 
+                 log_out.style.display='none';   // 로그인 감추기
+                 sign_up.style.display='none';   // 회원가입 감추기
 
-                    document.getElementById('logout2').style.display='block';   // 로그아웃
-                    document.getElementById('map').style.display='block';       // 지도
-                    document.getElementById('myPage').style.display='block';    // 마이 페이지
-                }
+                 document.getElementById('logout2').style.display='block';   // 로그아웃
+                 document.getElementById('map1').style.display='block';       // 지도
+                 document.getElementById('myPage').style.display='block';    // 마이 페이지
             }
         }
         </script>
@@ -47,7 +46,7 @@
             <!-- 네비게이션 바-->
             <nav class="navbar navbar-expand-lg bg-primary-subtle text-uppercase" id="mainNav">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="/user?action=index">
                         <img src="assets/img/Hahahoho-logo.png" alt="Avatar Logo" style="width: 250px;" class="rounded-pill"> 
                     </a>
                     <button class="navbar-toggler text-uppercase font-weight-bold bg-primary-subtle text-black rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,12 +55,12 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="login2" href="login.html">Login</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="logout2" style="display: none;" onclick="logout()" href="index.html">Logout</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="login2" href="user?action=login">Login</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="logout2" style="display: none;" onclick="logout()" href="user?action=logout">Logout</a></li>
                             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" href="#about">About</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="register" href="register.html">Sign Up</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="map" style="display: none;" href="attraction.html">Map</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="myPage" style="display: none;" href="memberControl.html">Mypage</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="register" href="user?action=regist">Sign Up</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="map1" style="display: none;" href="attraction.html">Map</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="myPage" style="display: none;" href="/user?action=modify">Mypage</a></li>
                         </ul>
                     </div>
                 </div>
