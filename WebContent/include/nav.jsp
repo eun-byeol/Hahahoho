@@ -17,7 +17,7 @@
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="login2" href="/user?action=login">Login</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="logout2" style="display: none;" onclick="logout()" href="user?action=logout">Logout</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="register" href="user?action=regist">Sign Up</a></li>
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="map1" style="display: none;" href="attraction.html">Map</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="map1" style="display: none;" href="attraction?action=goMap">Map</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-secondary" id="myPage" style="display: none;" href="/user?action=modify">Mypage</a></li>
             </ul>
         </div>
