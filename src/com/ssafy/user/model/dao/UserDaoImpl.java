@@ -165,4 +165,56 @@ public class UserDaoImpl implements UserDao {
 			userDb.close(conn, pstmt);
 		}
 	}
+	@Override
+	public String selectUserName(String userId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String result = null;
+		try {
+			conn = userDb.getConnection();
+			String sql = "select user_name from user where user_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getString("user_name");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("회원 조회 실패");
+		}finally {
+			userDb.close(conn, pstmt, rs);
+		}
+		return result;
+	}
+	@Override
+	public String selectUserEmail(String userEmail) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String result = null;
+		try {
+			conn = userDb.getConnection();
+			String sql = "select question from user where user_email = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userEmail);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getString("question");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("회원 조회 실패");
+		}finally {
+			userDb.close(conn, pstmt, rs);
+		}
+		return result;
+	}
 }

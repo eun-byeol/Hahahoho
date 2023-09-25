@@ -17,4 +17,8 @@ public interface UserService {
 	public int modifyUser(UserPageDto userPageDto) throws SQLException;
 	
 	public int quitUser(int userNo) throws SQLException;
+	
+	public String userFindName(String userId) throws SQLException;
+	
+	public String userFindEmail(String userEmail) throws SQLException;
 }

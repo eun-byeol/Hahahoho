@@ -77,7 +77,7 @@
                 <div class="p-1">
                     <a
                         class="w-100 btn bg-secondary fw-bold fs-5 text-white"
-                        href="findPasswordById.html"
+                        href="user?action=findById"
                         role="button"
                         >비밀번호 찾기</a
                     >

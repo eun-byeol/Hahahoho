@@ -6,20 +6,18 @@
 	<%@ include file="/include/header.jsp" %>
 	<script>
       window.onload=function(){
-        var login = sessionStorage.getItem('login');
-        if(login){//login키값이 존재한다면
-            if(login== 'success'){
-              var myPage_on = document.getElementById('myPage');  // 마이페이지 메뉴
-              var log_out = document.getElementById('login2');    // 로그아웃 메뉴
-              var sign_up = document.getElementById('register');  // 회원가입 메뉴
-              
-              log_out.style.display='none';   // 로그인 감추기
-              sign_up.style.display='none';   // 회원가입 감추기
+    	var login = document.cookie.split("=");
+    	if(login[1]){//login키값이 존재한다면
+           var myPage_on = document.getElementById('myPage');  // 마이페이지 메뉴
+           var log_out = document.getElementById('login2');    // 로그아웃 메뉴
+           var sign_up = document.getElementById('register');  // 회원가입 메뉴
+           
+           log_out.style.display='none';   // 로그인 감추기
+           sign_up.style.display='none';   // 회원가입 감추기
 
-              document.getElementById('logout2').style.display='block';   // 로그아웃
-              document.getElementById('map1').style.display='block';       // 지도
-              document.getElementById('myPage').style.display='block';    // 마이 페이지
-            }
+           document.getElementById('logout2').style.display='block';   // 로그아웃
+           document.getElementById('map1').style.display='block';       // 지도
+           document.getElementById('myPage').style.display='block';    // 마이 페이지
         }
       }
     </script>
