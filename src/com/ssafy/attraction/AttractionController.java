@@ -34,6 +34,9 @@ public class AttractionController extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		switch (action) {
+			case "goMap":
+				request.getRequestDispatcher("/enjoytrip/map.jsp").forward(request, response);
+				break;
 			case "search":
 				doSearch(request, response);
 				break;
