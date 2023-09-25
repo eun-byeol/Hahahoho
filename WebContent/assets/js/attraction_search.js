@@ -39,6 +39,10 @@ selectedSido.addEventListener("click", () => {
             .then((response) => response.json())
             .then((data) => makeGugunOption(data));
     }
+    else {
+    	let sel = document.getElementById("search-city-area");
+    	sel.innerHTML = '<option value="0" selected>군구 선택</option>';
+    }
 })
 
 function makeGugunOption(data) {
