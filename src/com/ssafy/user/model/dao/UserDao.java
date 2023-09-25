@@ -12,4 +12,6 @@ public interface UserDao {
 	public UserPageDto getUserPageDto(int userNo) throws SQLException;
 	public int updateUser(UserPageDto userPageDto) throws SQLException;
 	public int deleteUser(int userNo) throws SQLException;
+	public String selectUserName(String userId) throws SQLException;
+	public String selectUserEmail(String userEmail) throws SQLException;
 }

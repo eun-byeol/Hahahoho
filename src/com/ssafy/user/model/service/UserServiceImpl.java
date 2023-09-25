@@ -76,4 +76,27 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public String userFindName(String userId) throws SQLException {
+		// TODO Auto-generated method stub
+		try {
+			return userDao.selectUserName(userId);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("회원 조회 실패");
+		}
+	}
+
+	@Override
+	public String userFindEmail(String userEmail) throws SQLException {
+		try {
+			return userDao.selectUserEmail(userEmail);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("회원 조회 실패");
+		}
+	}
+
 }
