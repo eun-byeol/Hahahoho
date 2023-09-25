@@ -189,9 +189,9 @@ function memberDelete() {
   }
 }
 
-// 아이디 확인 기능
-function idChecking() {
-  // 문서에서 id 로 input data 가져오기
+// 회원 정보 가져오기
+function getUserInfo() {
+	// 문서에서 id 로 input data 가져오기
   let id = document.getElementById("ID").value;
   
   // 아이디가 없는 경우 채우기
@@ -199,42 +199,43 @@ function idChecking() {
     alert("빈칸이 없도록 입력해주세요.");
     return;
   } else {
-    // 로컬스토리지에 "user" 키로 저장된 item 가져와서 json 객체로 만들기
-    const user = JSON.parse(localStorage.getItem("user"));
+	const url = "/user?action=findById";
+	
+	fetch(url)
+	    .then((response) => response.json())
+	    .then((data) => idChecking(data));
+  }
+}
 
+// 아이디 확인 기능
+function idChecking(data) {
+	let userInfos = data.infos;
+    // 로컬스토리지에 "user" 키로 저장된 item 가져와서 json 객체로 만들기
+    
+    console.log(userInfos);
     // 등록된 회원이 없는경우
-    if (user == undefined) {
+    if (userInfos == null) {
       alert("등록된 회원이 없습니다.");
       return;
     }
-  
-    // 입력값 검증
-    if (user.id && user.id ===id) {
-        // 아이디 확인이 완료되면 상태 저장
-        sessionStorage.setItem('idCheck', 'success'); //세션에 아이디 확인 여부 저장
-    } else {
-        alert("해당하는 아이디가 없습니다.");
-    }
-    // 화면 재설정
-    location.href = "findPasswordById.html";
-  }
 }
 
 // 이메일 검증 단계로 이동하는 기능
 function moveNext() {
   // 아이디 검증이 완료 됐는지 확인
-  let flag = sessionStorage.getItem('next');
-
-  // 아이디 검증이 완료될때 시행
-  if (flag && flag === 'success') {
-    alert("다음으로 이동합니다.");
-    sessionStorage.removeItem('idCheck');
-    sessionStorage.removeItem('next');
-    location.replace("findPasswordByQuestion.html");
-  }
-  else {
-    alert("아이디를 확인하세요");
-  }
+//  let flag = sessionStorage.getItem('next');
+//
+//  // 아이디 검증이 완료될때 시행
+//  if (flag && flag === 'success') {
+//    alert("다음으로 이동합니다.");
+//    sessionStorage.removeItem('idCheck');
+//    sessionStorage.removeItem('next');
+//    location.replace("findPasswordByQuestion.html");
+//  }
+//  else {
+//    alert("아이디를 확인하세요");
+//  }
+	location.href = "/user?action=findByQuest"
 }
 
 // 이메일 체크 기능
@@ -247,23 +248,10 @@ function emailChecking() {
     alert("빈칸이 없도록 입력해주세요.");
     return;
   } else {
-    // 로컬스토리지에 "user" 키로 저장된 item 가져와서 json 객체로 만들기
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    // 등록된 회원이 없는경우
-    if (user == undefined) {
-      alert("등록된 회원이 없습니다.");
-      return;
-    }
-  
-    // 입력값 검증
-    if (user.email && user.email ===email) {
-        // 이메일 확인이 완료되면 상태 저장
-        sessionStorage.setItem('emailCheck', 'success'); //세션에 이메일 확인 여부 저장
-    } else {
-        alert("해당하는 이메일이 없습니다.");
-    }
-    location.replace("findPasswordByQuestion.html");
+		const url = "/user?action=findByQuest";
+		
+		fetch(url)
+		    .then((response) => response.json())
   }
 }
 
@@ -278,24 +266,25 @@ function moveChangePassword() {
     alert("빈칸이 없도록 입력해주세요.");
     return;
   } else {
-    // 로컬스토리지에 "user" 키로 저장된 item 가져와서 json 객체로 만들기
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    // 등록된 회원이 없는경우
-    if (user == undefined) {
-      alert("등록된 회원이 없습니다.");
-      return;
-    }
-  
-    // 입력값 검증
-    if (user.question === question && user.answer === answer) {
-      // 질문과 답이 맞은 경우 상태 저장
-      sessionStorage.removeItem('next');  // 세션 지우기
-      sessionStorage.setItem('answerCheck', 'success'); //세션에 답변 확인 여부 저장
-      location.replace("changePassword.html");
-    } else {
-        alert("질문에 대한 답변이 틀렸습니다.");
-    }
+	  location.href = "/user?action=MeMe";
+//    // 로컬스토리지에 "user" 키로 저장된 item 가져와서 json 객체로 만들기
+//    const user = JSON.parse(localStorage.getItem("user"));
+//
+//    // 등록된 회원이 없는경우
+//    if (user == undefined) {
+//      alert("등록된 회원이 없습니다.");
+//      return;
+//    }
+//  
+//    // 입력값 검증
+//    if (user.question === question && user.answer === answer) {
+//      // 질문과 답이 맞은 경우 상태 저장
+//      sessionStorage.removeItem('next');  // 세션 지우기
+//      sessionStorage.setItem('answerCheck', 'success'); //세션에 답변 확인 여부 저장
+//      location.replace("changePassword.html");
+//    } else {
+//        alert("질문에 대한 답변이 틀렸습니다.");
+//    }
   }
 }
 
