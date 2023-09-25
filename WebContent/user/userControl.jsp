@@ -22,16 +22,6 @@
                 document.getElementById('map1').style.display='block';       // 지도
                 document.getElementById('myPage').style.display='block';    // 마이 페이지
                 
-
-                //var user = JSON.parse(localStorage.getItem('user'));
-
-                //document.getElementById('password').value = user.password;
-                //document.getElementById('password2').value = user.password;
-                //document.getElementById('name').value = user.name;
-                //document.getElementById('email').value = user.email;
-                //document.getElementById('age').value = user.age;
-                //document.getElementById("question").value = user.question;
-                //document.getElementById("answer").value = user.answer;
             }
         }  
 </script>
