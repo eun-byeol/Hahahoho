@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.user.model.UserChangeDto;
+import com.ssafy.user.model.UserCheckAnswerDto;
 import com.ssafy.user.model.UserDto;
 import com.ssafy.user.model.UserLoginDto;
 import com.ssafy.user.model.UserPageDto;
@@ -77,7 +79,12 @@ public class UserController extends HttpServlet {
 					doFindByQuest(request, response);
 					break;
 				case "change":
-					
+					if(request.getAttribute("method") != null) {
+						request.getRequestDispatcher("/user/changePassword.jsp").forward(request, response);
+						request.setAttribute("method", "post");
+					}
+					else
+						doChange(request, response);
 					break;
 			}
 		}
@@ -290,8 +297,16 @@ public class UserController extends HttpServlet {
 	
 	protected void doFindByQuest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String userEmail = request.getParameter("userEmail");
+		String question = request.getParameter("question");
+		String answer = request.getParameter("answer");
 		
-		String question;
+		System.out.println(userEmail);
+		System.out.println(question);
+		System.out.println(answer);
+		if(question != "" && answer != "") {
+			checkAnswer(request, response);
+			return;
+		}
 		
 		try {
 			question = userService.userFindEmail(userEmail);
@@ -312,5 +327,51 @@ public class UserController extends HttpServlet {
 		request.setAttribute("question", question);
 		request.getRequestDispatcher("/user/findPasswordByQuestion.jsp").forward(request, response);
 //		response.getWriter().write(new ObjectMapper().writeValueAsString(resultMap));
+	}
+	
+	protected void checkAnswer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Integer userNum = null;
+		
+		String userEmail = request.getParameter("userEmail");
+		String question = request.getParameter("question");
+		String answer = request.getParameter("answer");
+		
+		UserCheckAnswerDto userCheckAnswerDto = new UserCheckAnswerDto(userEmail, question, answer);
+		
+		try {
+			userNum = userService.userCheckAnswer(userCheckAnswerDto);
+			
+		}catch(Exception e) {
+			request.setAttribute("msg", "비밀번호 찾기 실패.");
+			e.printStackTrace();
+			response.sendError(500);
+			return;
+		}
+
+		request.setAttribute("userNo", userNum);
+		request.setAttribute("method", "get");
+		request.getRequestDispatcher("/user?action=change").forward(request, response);
+//		response.sendRedirect("/user?action=change");
+	}
+	
+	protected void doChange(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Integer userNum = Integer.parseInt(request.getParameter("userNo"));
+		String userPwd = request.getParameter("password");
+		String userPwd2 = request.getParameter("password2");
+		
+		if(userNum == null && !userPwd.equals(userPwd2)) {
+			//오류 메세지
+		}
+		UserChangeDto userChangeDto = new UserChangeDto(userNum, userPwd, userPwd2);
+		
+		try {
+			int cnt = userService.changePwd(userChangeDto);
+		}catch(SQLException e) {
+			request.setAttribute("msg", "회원 정보 변경 실패");
+			e.printStackTrace();
+			response.sendError(500);
+			return;
+		}
+		response.sendRedirect("/user?action=login");
 	}
 }

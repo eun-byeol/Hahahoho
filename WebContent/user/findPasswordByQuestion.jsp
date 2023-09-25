@@ -22,17 +22,6 @@
                document.getElementById('myPage').style.display='block';    // 마이 페이지
                 
             }
-			/*
-            // 이메일 확인이 완료된 경우
-            if(emailCheck){
-                if(emailCheck== 'success'){
-                    var user = JSON.parse(localStorage.getItem('user'));
-                    document.getElementById('email').value = user.email;
-                    document.getElementById('question').value = user.question;
-                    sessionStorage.removeItem('emailCheck');
-                }
-            }
-			*/
         }  
     </script>
 </head>
@@ -93,6 +82,8 @@
 	                <div class="p-1">
 	                    <button
 	                    	type="submit"
+	                    	name="action"
+	                    	value="matchAnswer"
 	                        class="w-100 btn bg-secondary fw-bold fs-5 text-white"
 	                        onclick="moveChangePassword()"
 	                    >

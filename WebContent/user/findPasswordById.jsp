@@ -22,16 +22,7 @@
                 document.getElementById('myPage').style.display='block';    // 마이 페이지
             }
 
-            // ID 확인이 완료된 경우
-            /*if(idCheck){
-                if(idCheck== 'success'){
-                    var user = JSON.parse(localStorage.getItem('user'));
-                    document.getElementById('ID').value = user.id;
-                    document.getElementById('name').value = user.name;
-                    sessionStorage.removeItem('idCheck');
-                    sessionStorage.setItem('next', 'success');
-                }
-            }*/
+
         }  
     </script>
 </head>
@@ -80,7 +71,7 @@
                 <div class="p-1">
                     <button
                         class="w-100 btn bg-secondary fw-bold fs-5 text-white"
-                        onclick="moveNext()"
+                        onclick="location.href = '/user?action=findByQuest'"
                         type="button"
                     >
                     	다음

@@ -2,6 +2,8 @@ package com.ssafy.user.model.service;
 
 import java.sql.SQLException;
 
+import com.ssafy.user.model.UserChangeDto;
+import com.ssafy.user.model.UserCheckAnswerDto;
 import com.ssafy.user.model.UserDto;
 import com.ssafy.user.model.UserLoginDto;
 import com.ssafy.user.model.UserPageDto;
@@ -96,6 +98,30 @@ public class UserServiceImpl implements UserService {
 		}catch(SQLException e) {
 			e.printStackTrace();
 			throw new SQLException("회원 조회 실패");
+		}
+	}
+
+	@Override
+	public Integer userCheckAnswer(UserCheckAnswerDto userCheckAnswerDto) throws SQLException {
+		// TODO Auto-generated method stub
+		UserCheckAnswerDto loadAnswer = userDao.getAnswer(userCheckAnswerDto);
+		if(loadAnswer == null) {
+			throw new SQLException("아이디가 없습니다.");
+		}
+		else if(!loadAnswer.getAnswer().equals(userCheckAnswerDto.getAnswer())) {
+			throw new SQLException("정답이 아닙니다.");
+		}
+		return loadAnswer.getUserNo();
+	}
+
+	@Override
+	public int changePwd(UserChangeDto userChangeDto) throws SQLException {
+		try {
+			userDao.updatePwd(userChangeDto);
+			return 1;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("비밀번호 변경 실패");
 		}
 	}
 
