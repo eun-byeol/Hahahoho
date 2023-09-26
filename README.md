@@ -1,92 +1,146 @@
 # 04_EnjoyTrip_Back
 
+### 로고 이미지
 
+![로고](./assets/img/Hahahoho-logo.png)
 
-## Getting started
+## 1. 메인 페이지
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+하하호호 여행사에 대한 서비스 설명과 대문 이미지를 제공합니다. 로그인 여부에 따라 네비게이션 바 메뉴가 달라집니다. 비로그인 시에는 `LOGIN`, `ABOUT`, `SIGNIN` 메뉴를 제공하고, 로그인 시에는 `LOGOUT`, `ABOUT`, `MAP`, `MYPAGE` 메뉴를 제공합니다.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+해당 메뉴들은 아래의 기능을 합니다.
 
-## Add your files
+- LOGIN : 로그인 페이지로 이동합니다.
+- ABOUT : 메인 페이지의 서비스 설명으로 이동합니다.
+- SIGNIN : 회원가입 페이지로 이동합니다.
+- LOGOUT : 로그아웃됩니다.
+- MYPAGE : 마이페이지로 이동합니다.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### 비 로그인시 네비바(default)
 
-```
-cd existing_repo
-git remote add origin https://lab.ssafy.com/joeunbyeol98/04_enjoytrip_back.git
-git branch -M master
-git push -uf origin master
-```
+![비로그인](./assets/img/indexpage_default.png)
 
-## Integrate with your tools
+### 로그인시 네비바
 
-- [ ] [Set up project integrations](https://lab.ssafy.com/joeunbyeol98/04_enjoytrip_back/-/settings/integrations)
+![로그인](./assets/img/indexpage_login.png)
 
-## Collaborate with your team
+### 반응형 네비바
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+네비게이션 바는 반응형으로 구현되었습니다. 화면의 폭을 줄이면 햄버거 버튼으로 바뀝니다.
 
-## Test and Deploy
+![반응형](./assets/img/indexpage_small.png)
 
-Use the built-in continuous integration in GitLab.
+## 2. 관광지 조회
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+최대 세 가지 정보를 통해 관광지를 조회합니다. `시도` 선택 시 해당하는 `군구` 를 선택할 수 있습니다. 8개의 `관광지 유형` 선택이 가능하고, 미 선택 시 전체 유형이 검색됩니다.
 
-***
+검색 결과는 하단의 지도에 마커로 표시됩니다. 마커를 클릭하면 해당 관광지의 정보가 오버레이 형태로 나타납니다. 관광지 정보는 닫기 버튼을 클릭하여 없앨 수 있습니다.
 
-# Editing this README
+### 검색 정보 선택
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+![관광지 검색](./assets/img/attraction_search.png)
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### 검색 결과
 
-## Name
-Choose a self-explaining name for your project.
+![관광지 검색 결과](./assets/img/attraction_result.png)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## 3. 회원 가입
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+2가지 방법으로 회원 가입 페이지로 이동이 가능합니다.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+### 네비게이션 바
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+네비게이션 바에 있는 `Sign up`를 선택하는 경우 회원 가입 페이지로 이동이 가능합니다.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+![네비게이션 바](./assets/img/signuppage_login1.jpg)
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### 로그인 페이지
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+로그인 페이지의 `회원가입` 버튼을 선택시 회원 가입 페이지로 이동이 가능합니다.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+![로그인 페이지](./assets/img/signuppage_login2.jpg)
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### 회원가입 페이지
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+회원가입 페이지는 화면 중앙에 폼 형태로 나타납니다. 회원가입에 필요한 정보를 입력받아 사용자의 정보를 저장할 수 있습니다.<br>
+사용자의 정보를 통해 `로그인`, `비밀번호 찾기`, `회원정보 수정`, `회원 삭제`가 가능합니다.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+![로그인 페이지](./assets/img/singuppage.jpg)
 
-## License
-For open source projects, say how it is licensed.
+## 4. 마이페이지 - 회원 정보 조회, 수정, 삭제
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+마이페이지는 로그인 후 네비게이션 바에 있는 Mypage를 통해 이동이 가능합니다. <br>
+
+### 회원 정보 조회, 수정
+
+마이페이지에서 회원 정보 조회가 가능하며, 회원정보 수정 후 `회원정보 수정` 버튼을 통해 수정이 가능합니다.
+
+![마이페이지](./assets/img/mypage.jpg)
+
+### 회원 삭제
+
+마이페이지에서 `회원탈퇴` 버튼을 클릭하면 회원 탈퇴가 가능합니다. <br>
+잘못 클릭시 바로 회원탈퇴가 되지 않도록 한번 더 확인하는 과정이 있습니다.
+
+![회원 탈퇴](./assets/img/mypage_delete.jpg)
+
+## 5. 로그인, 로그아웃
+
+로그인은 네비게이션 바에 있는 LOGIN를 통해 로그인 페이지로 이동이 가능합니다. <br>
+로그아웃은 네비게이션 바에 있는 LOGOUT를 통해 로그아웃이 가능하고 메인 페이지로 이동합니다.
+
+### 로그인
+
+등록된 아이디에 해당하는 비밀번호를 입력한 경우 로그인이 됩니다. <br>
+로그인이 성공하면 관광지 조회 페이지로 넘어갑니다. <br>
+잘못된 비밀번호를 넣는 경우 로그인 실패!라는 알림창이 나옵니다.
+
+![로그인 실패](./assets/img/loginpage_fail.jpg)
+
+### 로그아웃
+
+네비게이션 바에 있는 `LOGOUT` 버튼을 클릭하면 로그아웃이 가능합니다. <br>
+로그아웃 시 로그인 세션을 제거하며, 메인페이지로 이동합니다.
+
+![로그아웃](./assets/img/logout.jpg)
+
+## 6. 비밀번호 찾기
+
+비밀번호 찾기는 로그인 페이지의 `비밀번호 찾기` 버튼을 통해 가능합니다.
+비밀번호를 찾기 위해서는 사용자의 `아이디`, `이메일`, `사용자 질문의 답변`이 필요합니다.
+
+### 아이디로 회원 이름 확인
+
+아이디 입력 후 `ID 확인` 버튼을 통해 사용자의 이름을 확인할 수 있습니다. <br>
+이름 확인 후 다음으로 넘어갑니다. 아이디가 없는 경우 `해당하는 아이디가 없습니다.`라는 알림창이 나옵니다.
+
+![아이디 확인](./assets/img/findpasswordbyid.jpg)
+
+![아이디 확인 실패](./assets/img/findpasswordbyid2.jpg)
+
+### 이메일로 회원의 질문 및 질문에 대한 답변 확인
+
+이메일 입력 후 `Email 확인` 버튼을 통해 사용자의 질문을 조회 가능합니다. <br>
+이메일 확인 후 비밀번호 재설정 페이지로 넘어갑니다.
+
+![이메일 확인](./assets/img/findpasswordbyemail.jpg)
+
+이메일이 다른 경우 `해당하는 이메일이 없습니다.`라는 알림창이 나옵니다.
+
+![이메일 확인 실패](./assets/img/findpasswordbyemail2.jpg)
+
+질문의 답이 틀린 경우에는 `질문에 대한 답변이 틀렸습니다.`라는 알림창이 나옵니다.
+
+![답변 틀림](./assets/img/findpasswordbyemail_fail.jpg)
+
+### 비밀번호 재설정
+
+비밀번호 재설정 페이지에서 비밀번호 재설정이 가능하며, 새로운 비밀번호와 비밀번호 체크를 다시 한번 확인하여 잘못된 비밀번호가 설정되지 않도록 합니다.
+
+![비밀번호 재설정](./assets/img/changepasswordpage1.jpg)
+
+사용자 데이터 변경점을 확인하면 다음과 같습니다.
+
+![기존 비밀번호](./assets/img/userinform.jpg)
+
+![새로운 비밀번호](./assets/img/usernewinform.jpg)
