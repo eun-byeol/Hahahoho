@@ -19,8 +19,6 @@ function getSidoInfo() {
 
 function makeSidoOption(data) {
     let sidoInfos = data.infos;
-//    console.log("sidoInfos", sidoInfos);
-    
     let sel = document.getElementById("search-province-area");
     
     sidoInfos.forEach((sido) => {
@@ -53,8 +51,6 @@ selectedSido.addEventListener("click", () => {
 
 function makeGugunOption(data) {
     let gugunInfos = data.infos;
-//    console.log("gugunInfos", gugunInfos);
-    
     let sel = document.getElementById("search-city-area");
     let opt = '<option value="0" selected>군구 선택</option>';
     
@@ -124,9 +120,9 @@ function makeList(data) {
     
     positions = [];
     trips.forEach((area) => {
-        // console.log(area);
         let markerInfo = {
             title: area.title,
+            contentTypeId: area.contentTypeId,
             latlng: new kakao.maps.LatLng(area.latitude, area.longitude),
             image: area.firstImage,
             addr1: area.addr1,
@@ -145,7 +141,6 @@ function makeList(data) {
 
 
 function closeMarker() {
-//	console.log(markers);
 	for (var i = 0; i < markers.length; i++) {
 		markers[i].setMap(null);
     }
@@ -153,12 +148,31 @@ function closeMarker() {
 }
 
 
+/*
+아이콘 이미지 출처 : <a href="https://www.flaticon.com/kr/free-icons/-" title="별표 표시 아이콘">별표 표시 아이콘  제작자: juicy_fish - Flaticon</a>
+ */
+const markerImageSrc = new Map();
+markerImageSrc.set(12, '/assets/img/marker/picture.png'); // 관광지
+markerImageSrc.set(14, '/assets/img/marker/offices.png'); // 문화시설
+markerImageSrc.set(15, '/assets/img/marker/starred.png'); // 축제공연행사
+markerImageSrc.set(25, '/assets/img/marker/flagged.png'); // 여행코스
+markerImageSrc.set(28, '/assets/img/marker/camping-tent.png'); // 레포츠
+markerImageSrc.set(32, '/assets/img/marker/home.png'); // 숙박
+markerImageSrc.set(38, '/assets/img/marker/shopping.png'); // 쇼핑
+markerImageSrc.set(39, '/assets/img/marker/restaurant.png'); // 음식점
+
 function displayMarker() {
     for (var i = 0; i < positions.length; i ++) {
+    	var imageSrc = markerImageSrc.get(positions[i].contentTypeId), // 마커이미지의 주소입니다    
+        imageSize = new kakao.maps.Size(44, 48), // 마커이미지의 크기입니다
+        imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+    	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 
         var marker = new kakao.maps.Marker({
             map: map, // 마커를 표시할 지도
-            position: positions[i].latlng // 마커를 표시할 위치
+            position: positions[i].latlng, // 마커를 표시할 위치
+            image: markerImage
         });
         
         markers.push(marker);
