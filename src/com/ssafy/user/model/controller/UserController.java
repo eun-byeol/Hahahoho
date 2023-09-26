@@ -184,7 +184,7 @@ public class UserController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", loadUserNo);
 		
-		response.sendRedirect("/enjoytrip/map.jsp");
+		response.sendRedirect("/attraction?action=goMap");
 	}
 	
 	protected void viewModify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -289,6 +289,7 @@ public class UserController extends HttpServlet {
 			userName = userService.userFindName(userId);
 		}catch(Exception e) {
 			String msg = e.getMessage();
+			e.printStackTrace();
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
 			writer.println("<script>alert('" + msg+ "'); location.href='user?action=findById';</script>"); 
@@ -317,6 +318,7 @@ public class UserController extends HttpServlet {
 			
 		}catch(Exception e) {
 			String msg = e.getMessage();
+			e.printStackTrace();
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
 			writer.println("<script>alert('" + msg+ "'); location.replace('user?action=findByQuest');</script>"); 

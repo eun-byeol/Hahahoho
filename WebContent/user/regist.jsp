@@ -81,7 +81,7 @@
               <!-- 이메일 -->
               <div class="form-floating mb-3">
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
                   id="email"
                   name = "userEmail"

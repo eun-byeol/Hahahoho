@@ -199,6 +199,7 @@ public class UserDaoImpl implements UserDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		String result = null;
 		try {
 			conn = userDb.getConnection();
@@ -210,6 +211,7 @@ public class UserDaoImpl implements UserDao {
 			
 			if(rs.next()) {
 				result = rs.getString("question");
+				return result;
 			}
 			
 		}catch(SQLException e) {
@@ -218,7 +220,7 @@ public class UserDaoImpl implements UserDao {
 		}finally {
 			userDb.close(conn, pstmt, rs);
 		}
-		return result;
+		return null;
 	}
 	@Override
 	public UserCheckAnswerDto getAnswer(UserCheckAnswerDto userCheckAnswerDto) throws SQLException {

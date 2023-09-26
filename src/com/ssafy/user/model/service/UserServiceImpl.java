@@ -75,6 +75,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String userFindEmail(String userEmail) throws SQLException {
 		String result = userDao.selectUserEmail(userEmail);
+		
 		if(result == null)
 			throw new SQLException("해당하는 이메일이 없습니다.");
 		return result;
