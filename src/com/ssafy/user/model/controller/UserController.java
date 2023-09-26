@@ -1,6 +1,7 @@
 package com.ssafy.user.model.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,8 +56,6 @@ public class UserController extends HttpServlet {
 				}
 			}
 		}
-		System.out.println(action);
-		System.out.println(method);
 		
 		if(method.equals("POST")) {
 			switch(action) {
@@ -137,9 +136,12 @@ public class UserController extends HttpServlet {
 			int cnt = userService.registUser(userDto);
 			response.sendRedirect("/user?action=login");
 		}catch(SQLException e) {
-			request.setAttribute("msg", "회원가입에 실패했습니다.");
-			e.printStackTrace();
-			response.sendError(500);
+			String msg = e.getMessage();
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('" + msg+ "'); location.href='user?action=regist';</script>"); 
+			writer.close();
+			return;
 		}
 	}
 
@@ -155,10 +157,7 @@ public class UserController extends HttpServlet {
 		if(cookies != null) {
 			for(Cookie cookie: cookies) {
 				if(cookie.getName().equals("userNo")) {
-//					HttpSession session = request.getSession();
-//					session.setAttribute("loginUser", loadUserNo);
 					response.sendRedirect("/user/login.jsp");
-//					response.sendRedirect("/enjoytrip/map.jsp");
 					return;
 				}
 			}
@@ -168,9 +167,11 @@ public class UserController extends HttpServlet {
 			loadUserNo = userService.userLogin(userLoginDto);
 			
 		}catch(Exception e) {
-			request.setAttribute("msg", "로그인 실패.");
-			e.printStackTrace();
-			response.sendError(500);
+			String msg = e.getMessage();
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('" + msg+ "'); location.href='user?action=login';</script>"); 
+			writer.close();
 			return;
 		}
 		// 쿠키 설정
@@ -189,14 +190,15 @@ public class UserController extends HttpServlet {
 	protected void viewModify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		HttpSession session = request.getSession();
 		Integer userNo = (Integer)session.getAttribute("loginUser");
-		System.out.println(userNo);
 		UserPageDto userPageDto;
 		try {
 			userPageDto = userService.userInfo(userNo);
 		}catch(SQLException e) {
-			request.setAttribute("msg", "회원 정보 불러오기 실패");
-			e.printStackTrace();
-			response.sendError(500);
+			String msg = e.getMessage();
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('" + msg+ "'); location.href='user?action=modify';</script>"); 
+			writer.close();
 			return;
 		}
 		request.setAttribute("userInfo", userPageDto);
@@ -218,9 +220,11 @@ public class UserController extends HttpServlet {
 		try {
 			int cnt = userService.modifyUser(userPageDto);
 		}catch(SQLException e) {
-			request.setAttribute("msg", "회원 정보 변경 실패");
-			e.printStackTrace();
-			response.sendError(500);
+			String msg = e.getMessage();
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('" + msg+ "'); location.href='user?action=modify';</script>"); 
+			writer.close();
 			return;
 		}
 		// 로그아웃으로 보내기
@@ -240,7 +244,12 @@ public class UserController extends HttpServlet {
 				break;
 			}
 		}
-		response.sendRedirect("/user?action=login");
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter writer = response.getWriter();
+		writer.println("<script>alert('로그아웃 되었습니다.'); location.href='user?action=login';</script>"); 
+		writer.close();
+		return;
 	}
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -250,9 +259,11 @@ public class UserController extends HttpServlet {
 		try {
 			int cnt = userService.quitUser(userNo);
 		}catch(SQLException e) {
-			request.setAttribute("msg", "회원 탈퇴 실패");
-			e.printStackTrace();
-			response.sendError(500);
+			String msg = e.getMessage();
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('" + msg+ "'); location.href='user?action=modify';</script>"); 
+			writer.close();
 			return;
 		}
 		// 로그아웃
@@ -276,23 +287,19 @@ public class UserController extends HttpServlet {
 		
 		try {
 			userName = userService.userFindName(userId);
-			
 		}catch(Exception e) {
-			request.setAttribute("msg", "로그인 실패.");
-			e.printStackTrace();
-			response.sendError(500);
+			String msg = e.getMessage();
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('" + msg+ "'); location.href='user?action=findById';</script>"); 
+			writer.close();
 			return;
 		}
 		
-		response.setContentType("application/json;charset=utf-8");
-		
-//		Map<String, Object> resultMap = new HashMap<>();
-//		resultMap.put("userName", userName);
-		
 		request.setAttribute("userId", userId);
 		request.setAttribute("userName", userName);
+		request.setAttribute("check", true);
 		request.getRequestDispatcher("/user/findPasswordById.jsp").forward(request, response);
-//		response.getWriter().write(new ObjectMapper().writeValueAsString(resultMap));
 	}
 	
 	protected void doFindByQuest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -300,9 +307,6 @@ public class UserController extends HttpServlet {
 		String question = request.getParameter("question");
 		String answer = request.getParameter("answer");
 		
-		System.out.println(userEmail);
-		System.out.println(question);
-		System.out.println(answer);
 		if(question != "" && answer != "") {
 			checkAnswer(request, response);
 			return;
@@ -312,21 +316,17 @@ public class UserController extends HttpServlet {
 			question = userService.userFindEmail(userEmail);
 			
 		}catch(Exception e) {
-			request.setAttribute("msg", "이메일 찾기 실패.");
-			e.printStackTrace();
-			response.sendError(500);
+			String msg = e.getMessage();
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('" + msg+ "'); location.replace('user?action=findByQuest');</script>"); 
+			writer.close();
 			return;
 		}
-		
-//		response.setContentType("application/json;charset=utf-8");
-		
-//		Map<String, Object> resultMap = new HashMap<>();
-//		resultMap.put("userName", userName);
 		
 		request.setAttribute("userEmail", userEmail);
 		request.setAttribute("question", question);
 		request.getRequestDispatcher("/user/findPasswordByQuestion.jsp").forward(request, response);
-//		response.getWriter().write(new ObjectMapper().writeValueAsString(resultMap));
 	}
 	
 	protected void checkAnswer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -342,16 +342,17 @@ public class UserController extends HttpServlet {
 			userNum = userService.userCheckAnswer(userCheckAnswerDto);
 			
 		}catch(Exception e) {
-			request.setAttribute("msg", "비밀번호 찾기 실패.");
-			e.printStackTrace();
-			response.sendError(500);
+			String msg = e.getMessage();
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('" + msg+ "'); location.href='user?action=findByQuest';</script>"); 
+			writer.close();
 			return;
 		}
 
 		request.setAttribute("userNo", userNum);
 		request.setAttribute("method", "get");
 		request.getRequestDispatcher("/user?action=change").forward(request, response);
-//		response.sendRedirect("/user?action=change");
 	}
 	
 	protected void doChange(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -359,19 +360,33 @@ public class UserController extends HttpServlet {
 		String userPwd = request.getParameter("password");
 		String userPwd2 = request.getParameter("password2");
 		
-		if(userNum == null && !userPwd.equals(userPwd2)) {
+		if(userNum == null || !userPwd.equals(userPwd2)) {
 			//오류 메세지
+			String msg = "비밀번호, 비밀번호 확인이 일치하지 않습니다.";
+			request.setAttribute("method", "post");
+			request.setAttribute("userNo", userNum);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('" + msg+ "'); location.replace('user?action=findByQuest');</script>"); 
+			writer.close();
+			return;
 		}
 		UserChangeDto userChangeDto = new UserChangeDto(userNum, userPwd, userPwd2);
 		
 		try {
 			int cnt = userService.changePwd(userChangeDto);
 		}catch(SQLException e) {
-			request.setAttribute("msg", "회원 정보 변경 실패");
-			e.printStackTrace();
-			response.sendError(500);
+			String msg = e.getMessage();
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('" + msg+ "'); location.href='user?action=findByQuest';</script>"); 
+			writer.close();
 			return;
 		}
-		response.sendRedirect("/user?action=login");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter writer = response.getWriter();
+		writer.println("<script>alert('비밀번호 변경 완료'); location.href='/user?action=login';</script>"); 
+		writer.close();
+		return;
 	}
 }

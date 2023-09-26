@@ -46,6 +46,7 @@ public class UserDaoImpl implements UserDao {
 			pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
+			throw new SQLException("회원가입을 실패하였습니다.");
 		}finally {
 			userDb.close(conn, pstmt);
 		}
@@ -141,7 +142,7 @@ public class UserDaoImpl implements UserDao {
 			return 1;
 		}catch(SQLException e) {
 			e.printStackTrace();
-			throw new SQLException("회원 수정 실패");
+			throw new SQLException("회원 수정을 실패하였습니다.");
 		}finally {
 			userDb.close(conn, pstmt);
 		}
@@ -162,7 +163,7 @@ public class UserDaoImpl implements UserDao {
 			return 1;
 		}catch(SQLException e) {
 			e.printStackTrace();
-			throw new SQLException("회원 삭제 실패");
+			throw new SQLException("회원 삭제를 실패하였습니다.");
 		}finally {
 			userDb.close(conn, pstmt);
 		}
@@ -187,7 +188,7 @@ public class UserDaoImpl implements UserDao {
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
-			throw new SQLException("회원 조회 실패");
+			throw new SQLException("아이디 탐색에 실패하였습니다.");
 		}finally {
 			userDb.close(conn, pstmt, rs);
 		}
@@ -213,7 +214,7 @@ public class UserDaoImpl implements UserDao {
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
-			throw new SQLException("회원 조회 실패");
+			throw new SQLException("이메일 탐색을 실패하였습니다.");
 		}finally {
 			userDb.close(conn, pstmt, rs);
 		}
@@ -247,6 +248,7 @@ public class UserDaoImpl implements UserDao {
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
+			throw new SQLException("이메일 조회에 오류가 발생했습니다.");
 		}finally {
 			userDb.close(conn, pstmt, rs);
 		}
@@ -270,7 +272,7 @@ public class UserDaoImpl implements UserDao {
 			return 1;
 		}catch(SQLException e) {
 			e.printStackTrace();
-			throw new SQLException("비밀번호 수정 실패");
+			throw new SQLException("비밀번호 변경 실패");
 		}finally {
 			userDb.close(conn, pstmt);
 		}
