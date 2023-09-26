@@ -112,9 +112,12 @@
 
 등록된 아이디에 해당하는 비밀번호를 입력한 경우 로그인이 됩니다. <br>
 로그인이 성공하면 관광지 조회 페이지로 넘어갑니다. <br>
-잘못된 비밀번호를 넣는 경우 로그인 실패!라는 알림창이 나옵니다.
+없는 아이디인 경우 아이디가 없습니다.라는 알림창이 나옵니다. <br>
+잘못된 비밀번호를 넣는 경우 비밀번호가 틀립니다.라는 알림창이 나옵니다.
 
-![로그인 실패](./WebContent/assets/img/loginpage_fail.jpg)
+![로그인 실패1](./WebContent/assets/img/loginpage_fail1.jpg)
+
+![로그인 실패2](./WebContent/assets/img/loginpage_fail2.jpg)
 
 ### 로그아웃
 
@@ -148,7 +151,7 @@
 
 ![이메일 확인 실패](./WebContent/assets/img/findpasswordbyemail2.jpg)
 
-질문의 답이 틀린 경우에는 `질문에 대한 답변이 틀렸습니다.`라는 알림창이 나옵니다.
+질문의 답이 틀린 경우에는 `정답이 아닙니다.`라는 알림창이 나옵니다.
 
 ![답변 틀림](./WebContent/assets/img/findpasswordbyemail_fail.jpg)
 
@@ -157,6 +160,8 @@
 비밀번호 재설정 페이지에서 비밀번호 재설정이 가능하며, 새로운 비밀번호와 비밀번호 체크를 다시 한번 확인하여 잘못된 비밀번호가 설정되지 않도록 합니다.
 
 ![비밀번호 재설정](./WebContent/assets/img/changepasswordpage1.jpg)
+
+![비밀번호 재설정](./WebContent/assets/img/changepasswordpage2.jpg)
 
 사용자 데이터 변경점을 확인하면 다음과 같습니다.
 
