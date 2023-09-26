@@ -50,7 +50,7 @@
                     <button 
                         type="submit" 
                         class="w-30 btn bg-secondary fw-bold fs-5 text-white my-1 mb-2 p-2"
-                        onclick="getUserInfo()"
+                        onclick="idChecking()"
                     >
                     ID 확인
                     </button> 
