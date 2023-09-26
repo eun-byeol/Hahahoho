@@ -67,8 +67,6 @@ function login() {
       userPwd: password,
     };
     console.log(user);
-//	    // user 객체 문자열로 바꿔서 로컬스토리지에 저장
-//	    localStorage.setItem("user", JSON.stringify(user));
     
     var form = document.createElement('form');
     form.setAttribute('method', 'post');
@@ -91,7 +89,6 @@ function login() {
 // 로그아웃 기능
 function logout() {
     //CSS선택자를 사용하여 Element정보 얻어오기 
-//    sessionStorage.removeItem('login');
     document.querySelector('#login2').setAttribute("style","display:block");
     document.querySelector('#logout2').setAttribute("style", "display:none");
     alert("로그아웃 성공 !");
@@ -162,18 +159,6 @@ function memberDelete() {
   }
 }
 
-// 아이디 확인 기능
-function idChecking() {
-let id = document.getElementById("ID").value;
-	  
-  // 아이디가 없는 경우 채우기
-	if (!id) {
-		alert("빈칸이 없도록 입력해주세요.");
-		return;
-	} else {
-		location.href = "/user?action=findById";
-	}
-}
 
 // 이메일 체크 기능
 function emailChecking() {
@@ -199,50 +184,5 @@ function moveChangePassword() {
   if (!question || !answer) {
     alert("빈칸이 없도록 입력해주세요.");
     return;
-  } 
-}
-
-// 비밀번호 수정 기능
-function changePassword() {
-  // 문서에서 id 로 input data 가져오기
-  let password = document.getElementById("password").value;
-  let password2 = document.getElementById("password2").value;
-  
-  // 입력값 검증
-  if (!password || !password2) {
-    alert("빈칸이 없도록 입력해주세요.");
-    return;
-  } else {
-    // input data로 user 만들기
-    const user = {
-      id: null,
-      password: null,
-      name: null,
-      email: null,
-      age: null,
-      question: null,
-      answer: null
-    };
-
-    //비밀번호와 비밀번호 확인이 같은 경우 갱신
-    if (password === password2) {
-      var data = JSON.parse(localStorage.getItem('user'));
-
-      user.id = data.id;
-      user.password = password;
-      user.name = data.name;
-      user.email = data.email;
-      user.age = data.age;
-      user.question = data.question;
-      user.answer = data.answer;
-      
-      // user 객체 문자열로 바꿔서 로컬스토리지에 저장
-      localStorage.setItem("user", JSON.stringify(user));
-      alert("비밀번호 변경 성공!");
-      // 로그아웃 후 로그인 화면으로 돌아가기
-      sessionStorage.removeItem('login');
-      sessionStorage.removeItem('answerCheck');
-      location.replace("login.html");
-    }
   }
 }
