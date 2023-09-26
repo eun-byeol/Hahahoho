@@ -21,14 +21,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int registUser(UserDto userDto) throws SQLException {
-		// TODO Auto-generated method stub
-		try{
-			userDao.insertUser(userDto);
-			return 1;
-		}catch(SQLException e) {
-			e.printStackTrace();
-			throw new SQLException("회원 등록 실패");
-		}
+		// TODO Auto-generated method stubchangePwd
+		userDao.insertUser(userDto);
+		return 1;	
 	}
 
 	@Override
@@ -57,48 +52,32 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int modifyUser(UserPageDto userPageDto) throws SQLException {
 		// TODO Auto-generated method stub
-		try {
-			userDao.updateUser(userPageDto);
-			return 1;
-		}catch(SQLException e) {
-			e.printStackTrace();
-			throw new SQLException("회원 변경 실패");
-		}
+		userDao.updateUser(userPageDto);
+		return 1;
 	}
 
 	@Override
 	public int quitUser(int userNo) throws SQLException {
 		// TODO Auto-generated method stub
-		try {
-			userDao.deleteUser(userNo);
-			return 1;
-		}catch(SQLException e) {
-			e.printStackTrace();
-			throw new SQLException("회원 삭제 실패");
-		}
+		userDao.deleteUser(userNo);
+		return 1;
 	}
 
 	@Override
 	public String userFindName(String userId) throws SQLException {
 		// TODO Auto-generated method stub
-		try {
-			return userDao.selectUserName(userId);
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-			throw new SQLException("회원 조회 실패");
-		}
+		String result = userDao.selectUserName(userId);
+		if(result == null)
+			throw new SQLException("해당하는 아이디가 없습니다.");
+		return result;
 	}
 
 	@Override
 	public String userFindEmail(String userEmail) throws SQLException {
-		try {
-			return userDao.selectUserEmail(userEmail);
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-			throw new SQLException("회원 조회 실패");
-		}
+		String result = userDao.selectUserEmail(userEmail);
+		if(result == null)
+			throw new SQLException("해당하는 이메일이 없습니다.");
+		return result;
 	}
 
 	@Override
@@ -116,13 +95,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int changePwd(UserChangeDto userChangeDto) throws SQLException {
-		try {
-			userDao.updatePwd(userChangeDto);
-			return 1;
-		}catch(SQLException e) {
-			e.printStackTrace();
-			throw new SQLException("비밀번호 변경 실패");
-		}
+		userDao.updatePwd(userChangeDto);
+		return 1;
 	}
 
 }
