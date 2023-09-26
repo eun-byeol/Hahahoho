@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.ssafy.user.model.UserChangeDto;
+import com.ssafy.user.model.UserCheckAnswerDto;
 import com.ssafy.user.model.UserDto;
 import com.ssafy.user.model.UserLoginDto;
 import com.ssafy.user.model.UserPageDto;
@@ -161,6 +163,114 @@ public class UserDaoImpl implements UserDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 			throw new SQLException("회원 삭제 실패");
+		}finally {
+			userDb.close(conn, pstmt);
+		}
+	}
+	@Override
+	public String selectUserName(String userId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String result = null;
+		try {
+			conn = userDb.getConnection();
+			String sql = "select user_name from user where user_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getString("user_name");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("회원 조회 실패");
+		}finally {
+			userDb.close(conn, pstmt, rs);
+		}
+		return result;
+	}
+	@Override
+	public String selectUserEmail(String userEmail) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String result = null;
+		try {
+			conn = userDb.getConnection();
+			String sql = "select question from user where user_email = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userEmail);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getString("question");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("회원 조회 실패");
+		}finally {
+			userDb.close(conn, pstmt, rs);
+		}
+		return result;
+	}
+	@Override
+	public UserCheckAnswerDto getAnswer(UserCheckAnswerDto userCheckAnswerDto) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection conn= null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = userDb.getConnection();
+			String sql = "select user_uuid, answer from user where user_email = ? and question = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userCheckAnswerDto.getUserEmail());
+			pstmt.setString(2, userCheckAnswerDto.getQuestion());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				UserCheckAnswerDto loadDto = new UserCheckAnswerDto();
+				loadDto.setUserNo(rs.getInt("user_uuid"));
+				loadDto.setUserEmail(userCheckAnswerDto.getUserEmail());
+				loadDto.setQuestion(userCheckAnswerDto.getQuestion());
+				loadDto.setAnswer(rs.getString("answer"));
+				return loadDto;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			userDb.close(conn, pstmt, rs);
+		}
+		return null;
+	}
+	@Override
+	public int updatePwd(UserChangeDto userChangeDto) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = userDb.getConnection();
+			String sql = "update user set user_pwd = ? where user_uuid = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userChangeDto.getUserPwd());
+			pstmt.setInt(2, userChangeDto.getUserNo());
+			
+			pstmt.executeUpdate();
+			return 1;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("비밀번호 수정 실패");
 		}finally {
 			userDb.close(conn, pstmt);
 		}
