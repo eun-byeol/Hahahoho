@@ -9,6 +9,26 @@
 <head>
 	<%@ include file="/include/header.jsp" %>
 	<link rel="stylesheet" type="text/css" href="../assets/css/overlay_style.css">
+	<script>
+        window.onload=function(){
+        	var login = document.cookie.split("=");
+            //console.log(login[1]);
+
+            if(login[1]){ 
+               var myPage_on = document.getElementById('myPage');  // 마이페이지 메뉴
+               var log_out = document.getElementById('login2');    // 로그아웃 메뉴
+               var sign_up = document.getElementById('register');  // 회원가입 메뉴
+               
+               log_out.style.display='none';   // 로그인 감추기
+               sign_up.style.display='none';   // 회원가입 감추기
+
+               document.getElementById('logout2').style.display='block';   // 로그아웃
+               document.getElementById('map1').style.display='block';       // 지도
+               document.getElementById('myPage').style.display='block';    // 마이 페이지
+                
+            }
+        }  
+    </script>
 </head>
 <body>
 	<%@ include file="/include/nav.jsp" %>
