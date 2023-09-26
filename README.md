@@ -36,13 +36,32 @@
 
 검색 결과는 하단의 지도에 마커로 표시됩니다. 마커를 클릭하면 해당 관광지의 정보가 오버레이 형태로 나타납니다. 관광지 정보는 닫기 버튼을 클릭하여 없앨 수 있습니다.
 
-### 검색 정보 선택
+### 지역별 관광지 조회(전체)
+![전체](./WebContent/assets/img/capture/조회_전체.png)
 
-![관광지 검색](./WebContent/assets/img/attraction_search.png)
+### 지역별 관광지 조회(관광지)
+![전체](./WebContent/assets/img/capture/조회_관광지.png)
 
-### 검색 결과
+### 지역별 관광지 조회(문화시설)
+![전체](./WebContent/assets/img/capture/조회_문화시설.png)
 
-![관광지 검색 결과](./WebContent/assets/img/attraction_result.png)
+### 지역별 관광지 조회(행사/공연/축제)
+![전체](./WebContent/assets/img/capture/조회_축제공연행사.png)
+
+### 지역별 관광지 조회(여행코스)
+![전체](./WebContent/assets/img/capture/조회_여행코스.png)
+
+### 지역별 관광지 조회(레포츠)
+![전체](./WebContent/assets/img/capture/조회_레포츠.png)
+
+### 지역별 관광지 조회(숙박)
+![전체](./WebContent/assets/img/capture/조회_숙박.png)
+
+### 지역별 관광지 조회(쇼핑)
+![전체](./WebContent/assets/img/capture/조회_쇼핑.png)
+
+### 지역별 관광지 조회(음식점)
+![전체](./WebContent/assets/img/capture/조회_음식점.png)
 
 ## 3. 회원 가입
 
